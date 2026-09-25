@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>DeviceLog - Devices</title>
+
+
+<style>
+
+/* =========================================
+   RESET
+========================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#e9edf2;
+    color:#18212f;
+}
+
+
+/* =========================================
+   PHONE
+========================================= */
+
+.phone{
+    width:390px;
+    height:844px;
+    margin:20px auto;
+
+    background:#f5f7fa;
+
+    border-radius:35px;
+
+    overflow:hidden;
+
+    position:relative;
+
+    box-shadow:0 10px 35px rgba(0,0,0,.15);
+}
+
+
+/* =========================================
+   APP
+========================================= */
+
+.app{
+    height:100%;
+
+    overflow-y:auto;
+
+    padding-bottom:95px;
+}
+
+.app::-webkit-scrollbar{
+    width:0;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header{
+    background:#fff;
+
+    padding:22px 18px 17px;
+
+    border-bottom:1px solid #e8ebef;
+}
+
+.header-top{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.brand-icon{
+    width:38px;
+    height:38px;
+
+    border-radius:11px;
+
+    background:#edf5ff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:20px;
+}
+
+.brand h1{
+    font-size:20px;
+}
+
+.home-btn{
+    width:38px;
+    height:38px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:#f1f4f7;
+
+    cursor:pointer;
+
+    font-size:18px;
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.content{
+    padding:18px;
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+.search-row{
+    display:flex;
+
+    gap:9px;
+
+    margin-bottom:15px;
+}
+
+.search{
+    flex:1;
+
+    height:43px;
+
+    background:#fff;
+
+    border:1px solid #e0e5eb;
+
+    border-radius:11px;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 12px;
+
+    gap:8px;
+}
+
+.search input{
+    border:0;
+
+    outline:0;
+
+    width:100%;
+
+    font-size:12px;
+
+    background:transparent;
+}
+
+.filter{
+    width:43px;
+    height:43px;
+
+    border:1px solid #e0e5eb;
+
+    border-radius:11px;
+
+    background:#fff;
+
+    font-size:17px;
+
+    cursor:pointer;
+}
+
+
+/* =========================================
+   FILTER MENU
+========================================= */
+
+.filter-menu{
+    display:none;
+
+    position:absolute;
+
+    right:18px;
+
+    top:140px;
+
+    width:155px;
+
+    background:#fff;
+
+    border:1px solid #e0e5eb;
+
+    border-radius:12px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
+
+    padding:7px;
+
+    z-index:5;
+}
+
+.filter-menu.show{
+    display:block;
+}
+
+.filter-menu button{
+    width:100%;
+
+    border:0;
+
+    background:#fff;
+
+    text-align:left;
+
+    padding:10px;
+
+    border-radius:8px;
+
+    font-size:11px;
+
+    cursor:pointer;
+}
+
+.filter-menu button:hover{
+    background:#f1f6fd;
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.title-row{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+}
+
+.title-row h2{
+    font-size:18px;
+}
+
+.count{
+    font-size:11px;
+
+    color:#718096;
+}
+
+
+/* =========================================
+   DEVICE LIST
+========================================= */
+
+.device-list{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:9px;
+}
+
+.device{
+    background:#fff;
+
+    border:1px solid #e3e7ec;
+
+    border-radius:14px;
+
+    padding:13px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    cursor:pointer;
+
+    transition:.15s;
+}
+
+.device:active{
+    transform:scale(.985);
+}
+
+.device-icon{
+    width:45px;
+    height:45px;
+
+    border-radius:12px;
+
+    background:#f1f6fd;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:21px;
+
+    flex-shrink:0;
+}
+
+.device-info{
+    flex:1;
+
+    min-width:0;
+}
+
+.device-name{
+    font-size:13px;
+
+    font-weight:700;
+
+    margin-bottom:4px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.device-type{
+    font-size:10px;
+
+    color:#8792a2;
+
+    margin-bottom:7px;
+}
+
+.status{
+    display:inline-block;
+
+    font-size:9px;
+
+    font-weight:700;
+
+    padding:5px 8px;
+
+    border-radius:12px;
+}
+
+.working{
+    background:#eaf8ef;
+
+    color:#23944c;
+}
+
+.repair{
+    background:#fff7df;
+
+    color:#b27a00;
+}
+
+.not-working{
+    background:#fff0f0;
+
+    color:#d43b3b;
+}
+
+.arrow{
+    font-size:21px;
+
+    color:#9aa4b2;
+}
+
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.empty{
+    background:#fff;
+
+    border:1px dashed #d9dfe7;
+
+    border-radius:14px;
+
+    padding:35px 20px;
+
+    text-align:center;
+
+    color:#8792a2;
+
+    font-size:12px;
+}
+
+.empty strong{
+    display:block;
+
+    color:#18212f;
+
+    font-size:14px;
+
+    margin-bottom:6px;
+}
+
+
+/* =========================================
+   ADD BUTTON
+========================================= */
+
+.fab{
+    position:absolute;
+
+    right:18px;
+
+    bottom:88px;
+
+    width:55px;
+    height:55px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:#287be8;
+
+    color:#fff;
+
+    font-size:30px;
+
+    line-height:55px;
+
+    box-shadow:0 7px 18px rgba(40,123,232,.3);
+
+    cursor:pointer;
+
+    z-index:50;
+}
+
+.fab:active{
+    transform:scale(.94);
+}
+
+
+/* =========================================
+   BOTTOM NAVIGATION
+   SAME AS HOME.HTML
+========================================= */
+
+.bottom-nav{
+    position:absolute;
+
+    bottom:0;
+
+    left:0;
+
+    width:100%;
+
+    height:75px;
+
+    background:#ffffff;
+
+    border-top:1px solid #e4e8ee;
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    padding:5px 8px;
+
+    z-index:100;
+}
+
+.nav-item{
+    width:65px;
+
+    height:55px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:4px;
+
+    text-decoration:none;
+
+    color:#8994a3;
+
+    font-size:10px;
+
+    font-weight:400;
+
+    border-radius:12px;
+
+    flex-shrink:0;
+}
+
+.nav-item .nav-icon{
+    width:19px;
+
+    height:19px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:17px;
+
+    line-height:1;
+}
+
+.nav-item.active{
+    color:#287be8;
+
+    background:#edf5ff;
+
+    font-weight:600;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media(max-width:430px){
+
+    body{
+        background:#f5f7fa;
+    }
+
+    .phone{
+        width:100%;
+
+        height:100vh;
+
+        margin:0;
+
+        border-radius:0;
+
+        box-shadow:none;
+    }
+
+}
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+body.dark{
+    background:#0f172a;
+    color:#f1f5f9;
+}
+
+body.dark .phone{
+    background:#111827;
+    box-shadow:0 10px 35px rgba(0,0,0,.35);
+}
+
+body.dark .header{
+    background:#1f2937;
+    border-bottom-color:#374151;
+}
+
+body.dark .brand h1,
+body.dark .title-row h2,
+body.dark .device-name{
+    color:#f8fafc;
+}
+
+body.dark .count,
+body.dark .device-type{
+    color:#94a3b8;
+}
+
+body.dark .home-btn{
+    background:#374151;
+    color:#f8fafc;
+}
+
+body.dark .search{
+    background:#1f2937;
+    border-color:#374151;
+}
+
+body.dark .search input{
+    color:#f8fafc;
+}
+
+body.dark .search input::placeholder{
+    color:#94a3b8;
+}
+
+body.dark .filter{
+    background:#1f2937;
+    border-color:#374151;
+    color:#f8fafc;
+}
+
+body.dark .filter-menu{
+    background:#1f2937;
+    border-color:#374151;
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
+}
+
+body.dark .filter-menu button{
+    background:#1f2937;
+    color:#f8fafc;
+}
+
+body.dark .filter-menu button:hover{
+    background:#273449;
+}
+
+body.dark .device{
+    background:#1f2937;
+    border-color:#374151;
+}
+
+body.dark .device-icon{
+    background:#273449;
+}
+
+body.dark .arrow{
+    color:#94a3b8;
+}
+
+body.dark .empty{
+    background:#1f2937;
+    border-color:#475569;
+    color:#94a3b8;
+}
+
+body.dark .empty strong{
+    color:#f8fafc;
+}
+
+body.dark .bottom-nav{
+    background:#1f2937;
+    border-top-color:#374151;
+}
+
+body.dark .nav-item{
+    color:#94a3b8;
+}
+
+body.dark .nav-item.active{
+    color:#60a5fa;
+    background:#1e3a5f;
+}
+
+@media(max-width:430px){
+    body.dark{
+        background:#111827;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="phone">
+
+
+    <div class="app">
+
+
+        <!-- =========================================
+             HEADER
+        ========================================== -->
+
+        <header class="header">
+
+            <div class="header-top">
+
+
+                <div class="brand">
+
+                    <div class="brand-icon">
+                        💻
+                    </div>
+
+                    <h1>
+                        My Devices
+                    </h1>
+
+                </div>
+
+
+                <button
+                    class="home-btn"
+                    onclick="window.location.href='home.html'">
+
+                    ⌂
+
+                </button>
+
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             MAIN CONTENT
+        ========================================== -->
+
+        <main class="content">
+
+
+            <!-- SEARCH -->
+
+            <div class="search-row">
+
+
+                <div class="search">
+
+                    <span>
+                        🔍
+                    </span>
+
+                    <input
+                        id="searchInput"
+                        type="search"
+                        placeholder="Search devices...">
+
+                </div>
+
+
+                <button
+                    class="filter"
+                    id="filterButton">
+
+                    ☷
+
+                </button>
+
+
+            </div>
+
+
+
+            <!-- FILTER MENU -->
+
+            <div
+                class="filter-menu"
+                id="filterMenu">
+
+                <button
+                    onclick="setFilter('All')">
+
+                    All Devices
+
+                </button>
+
+
+                <button
+                    onclick="setFilter('Working')">
+
+                    Working
+
+                </button>
+
+
+                <button
+                    onclick="setFilter('Under Repair')">
+
+                    Under Repair
+
+                </button>
+
+
+                <button
+                    onclick="setFilter('Not Working')">
+
+                    Not Working
+
+                </button>
+
+            </div>
+
+
+
+            <!-- TITLE -->
+
+            <div class="title-row">
+
+                <h2>
+                    All Devices
+                </h2>
+
+                <span
+                    class="count"
+                    id="deviceCount">
+
+                    0 devices
+
+                </span>
+
+            </div>
+
+
+
+            <!-- DEVICE LIST -->
+
+            <section
+                class="device-list"
+                id="deviceList">
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+
+    <!-- =========================================
+         PLUS BUTTON
+    ========================================== -->
+
+    <button
+        class="fab"
+        onclick="window.location.href='add-device.html'"
+        aria-label="Add Device">
+
+        +
+
+    </button>
+
+
+
+    <!-- =========================================
+         BOTTOM NAVIGATION
+    ========================================== -->
+
+    <nav class="bottom-nav">
+
+
+        <!-- HOME -->
+
+        <a
+            href="home.html"
+            class="nav-item">
+
+            <div class="nav-icon">
+                🏠
+            </div>
+
+            <span>
+                Home
+            </span>
+
+        </a>
+
+
+        <!-- DEVICES -->
+
+        <a
+            href="device-list.html"
+            class="nav-item active">
+
+            <div class="nav-icon">
+                📱
+            </div>
+
+            <span>
+                Devices
+            </span>
+
+        </a>
+
+
+        <!-- STATS -->
+
+        <a
+            href="stats.html"
+            class="nav-item">
+
+            <div class="nav-icon">
+                📊
+            </div>
+
+            <span>
+                Stats
+            </span>
+
+        </a>
+
+
+        <!-- SETTINGS -->
+
+        <a
+            href="settings.html"
+            class="nav-item">
+
+            <div class="nav-icon">
+                ⚙️
+            </div>
+
+            <span>
+                Settings
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================
+   DEFAULT DEVICES
+========================================= */
+
+const defaultDevices = [
+
+    {
+        id:"default-1",
+
+        name:"MacBook Air",
+
+        type:"Laptop",
+
+        brand:"Apple",
+
+        status:"Working",
+
+        icon:"💻"
+    },
+
+
+    {
+        id:"default-2",
+
+        name:"iPhone 15",
+
+        type:"Smartphone",
+
+        brand:"Apple",
+
+        status:"Working",
+
+        icon:"📱"
+    },
+
+
+    {
+        id:"default-3",
+
+        name:"Bluetooth Speaker",
+
+        type:"Audio",
+
+        brand:"JBL",
+
+        status:"Under Repair",
+
+        icon:"🔊"
+    },
+
+
+    {
+        id:"default-4",
+
+        name:"Canon Printer",
+
+        type:"Printer",
+
+        brand:"Canon",
+
+        status:"Not Working",
+
+        icon:"🖨️"
+    },
+
+
+    {
+        id:"default-5",
+
+        name:"Smartwatch",
+
+        type:"Wearable",
+
+        brand:"Samsung",
+
+        status:"Working",
+
+        icon:"⌚"
+    }
+
+];
+
+
+
+/* =========================================
+   ACTIVE FILTER
+========================================= */
+
+let activeFilter = "All";
+
+
+
+/* =========================================
+   GET DEVICES
+========================================= */
+
+function getDevices(){
+
+    try{
+
+        const saved =
+            localStorage.getItem(
+                "devicelog_devices"
+            );
+
+
+        if(saved !== null){
+
+            const devices =
+                JSON.parse(saved);
+
+
+            if(Array.isArray(devices)){
+
+                return devices;
+
+            }
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Error loading devices:",
+            error
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "devicelog_devices",
+
+        JSON.stringify(
+            defaultDevices
+        )
+    );
+
+
+    return defaultDevices;
+
+}
+
+
+
+/* =========================================
+   STATUS CLASS
+========================================= */
+
+function statusClass(status){
+
+    if(status === "Working"){
+
+        return "working";
+
+    }
+
+
+    if(status === "Under Repair"){
+
+        return "repair";
+
+    }
+
+
+    return "not-working";
+
+}
+
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+
+        .replace(
+            /[&<>"']/g,
+
+            function(char){
+
+                return {
+
+                    "&":"&amp;",
+
+                    "<":"&lt;",
+
+                    ">":"&gt;",
+
+                    '"':"&quot;",
+
+                    "'":"&#039;"
+
+                }[char];
+
+            }
+
+        );
+
+}
+
+
+
+/* =========================================
+   RENDER DEVICES
+========================================= */
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+function loadDarkMode(){
+
+    const darkMode =
+        localStorage.getItem("devicelog_darkmode") === "true";
+
+    if(darkMode){
+        document.body.classList.add("dark");
+    }else{
+        document.body.classList.remove("dark");
+    }
+}
+
+function render(){
+
+    loadDarkMode();
+
+    const query =
+
+        document
+        .getElementById(
+            "searchInput"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+
+    let devices =
+        getDevices();
+
+
+
+    /* =====================================
+       FILTER
+    ====================================== */
+
+    devices =
+        devices.filter(
+            function(device){
+
+
+                const matchesFilter =
+
+                    activeFilter === "All" ||
+
+                    device.status ===
+                    activeFilter;
+
+
+
+                const text =
+
+                    (
+
+                        device.name +
+                        " " +
+
+                        device.type +
+                        " " +
+
+                        device.brand +
+                        " " +
+
+                        device.status
+
+                    )
+                    .toLowerCase();
+
+
+
+                return (
+
+                    matchesFilter &&
+
+                    text.includes(query)
+
+                );
+
+            }
+        );
+
+
+
+    /* =====================================
+       COUNT
+    ====================================== */
+
+    document.getElementById(
+        "deviceCount"
+    ).textContent =
+
+        devices.length +
+
+        " device" +
+
+        (
+            devices.length === 1
+                ? ""
+                : "s"
+        );
+
+
+
+    const list =
+
+        document.getElementById(
+            "deviceList"
+        );
+
+
+
+    /* =====================================
+       EMPTY
+    ====================================== */
+
+    if(devices.length === 0){
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                <strong>
+                    No devices found
+                </strong>
+
+                Try another search or
+                press + to add a device.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    /* =====================================
+       NEWEST FIRST
+    ====================================== */
+
+    list.innerHTML =
+
+        devices
+
+        .slice()
+
+        .reverse()
+
+        .map(
+            function(device){
+
+                return `
+
+                    <div
+                        class="device"
+                        onclick="openDetails(
+                            '${escapeHtml(device.id)}'
+                        )">
+
+
+                        <div class="device-icon">
+
+                            ${
+                                device.icon ||
+                                "💻"
+                            }
+
+                        </div>
+
+
+
+                        <div class="device-info">
+
+
+                            <div class="device-name">
+
+                                ${
+                                    escapeHtml(
+                                        device.name
+                                    )
+                                }
+
+                            </div>
+
+
+
+                            <div class="device-type">
+
+                                ${
+                                    escapeHtml(
+                                        device.type
+                                    )
+                                }
+
+                                •
+
+                                ${
+                                    escapeHtml(
+                                        device.brand
+                                    )
+                                }
+
+                            </div>
+
+
+
+                            <span
+                                class="status ${
+                                    statusClass(
+                                        device.status
+                                    )
+                                }">
+
+                                ${
+                                    escapeHtml(
+                                        device.status
+                                    )
+                                }
+
+                            </span>
+
+
+                        </div>
+
+
+
+                        <div class="arrow">
+
+                            ›
+
+                        </div>
+
+
+                    </div>
+
+                `;
+
+            }
+        )
+
+        .join("");
+
+}
+
+
+
+/* =========================================
+   OPEN DEVICE DETAILS
+========================================= */
+
+function openDetails(id){
+
+    localStorage.setItem(
+        "selected_device_id",
+        id
+    );
+
+
+    window.location.href =
+        "device-details.html";
+
+}
+
+
+
+/* =========================================
+   SET FILTER
+========================================= */
+
+function setFilter(filter){
+
+    activeFilter =
+        filter;
+
+
+    document
+        .getElementById(
+            "filterMenu"
+        )
+        .classList
+        .remove("show");
+
+
+    render();
+
+}
+
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+document
+    .getElementById(
+        "searchInput"
+    )
+    .addEventListener(
+        "input",
+        render
+    );
+
+
+
+/* =========================================
+   FILTER BUTTON
+========================================= */
+
+document
+    .getElementById(
+        "filterButton"
+    )
+    .addEventListener(
+        "click",
+        function(){
+
+            document
+                .getElementById(
+                    "filterMenu"
+                )
+                .classList
+                .toggle("show");
+
+        }
+    );
+
+
+
+/* =========================================
+   REFRESH WHEN RETURNING
+========================================= */
+
+window.addEventListener(
+    "pageshow",
+    function(){
+
+        render();
+
+    }
+);
+
+
+
+
+/* =========================================
+   STORAGE CHANGE
+========================================= */
+
+window.addEventListener(
+    "storage",
+    function(){
+        loadDarkMode();
+        render();
+    }
+);
+
+/* =========================================
+   START
+========================================= */
+
+loadDarkMode();
+render();
+
+</script>
+
+
+</body>
+</html>

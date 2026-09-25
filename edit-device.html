@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>DeviceLog - Edit Device</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#e9edf2;
+    color:#18212f;
+}
+
+.phone{
+    width:390px;
+    height:844px;
+    margin:20px auto;
+    background:#f5f7fa;
+    border-radius:35px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 10px 35px rgba(0,0,0,.15);
+}
+
+.app{
+    height:100%;
+    overflow-y:auto;
+    padding-bottom:90px;
+}
+
+.app::-webkit-scrollbar{
+    width:0;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header{
+    background:#fff;
+    padding:25px 22px 20px;
+    border-bottom:1px solid #e8ebef;
+}
+
+.header-top{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.back{
+    width:40px;
+    height:40px;
+    border:0;
+    border-radius:50%;
+    background:#f1f4f7;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.header h1{
+    font-size:21px;
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.content{
+    padding:20px;
+}
+
+.intro{
+    margin-bottom:18px;
+}
+
+.intro h2{
+    font-size:22px;
+    margin-bottom:7px;
+}
+
+.intro p{
+    font-size:12px;
+    color:#718096;
+    line-height:1.5;
+}
+
+
+/* =========================================
+   FORM CARD
+========================================= */
+
+.form-card{
+    background:#fff;
+    border:1px solid #e4e8ee;
+    border-radius:18px;
+    padding:18px;
+}
+
+.field{
+    margin-bottom:16px;
+}
+
+.field:last-child{
+    margin-bottom:0;
+}
+
+label{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:7px;
+}
+
+input,
+select{
+    width:100%;
+    height:44px;
+    border:1px solid #dfe4ea;
+    border-radius:10px;
+    padding:0 12px;
+    font-size:13px;
+    color:#18212f;
+    background:#fff;
+    outline:none;
+}
+
+input:focus,
+select:focus{
+    border-color:#287be8;
+    box-shadow:0 0 0 3px #edf5ff;
+}
+
+
+/* =========================================
+   ICONS
+========================================= */
+
+.icons{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:7px;
+}
+
+.icon-option{
+    height:42px;
+    border:1px solid #dfe4ea;
+    border-radius:10px;
+    background:#fff;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.icon-option.selected{
+    border:2px solid #287be8;
+    background:#edf5ff;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.save-btn{
+    width:100%;
+    height:46px;
+    border:0;
+    border-radius:11px;
+    background:#287be8;
+    color:#fff;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:4px;
+}
+
+.save-btn:active{
+    transform:scale(.98);
+}
+
+.cancel-btn{
+    display:block;
+    text-align:center;
+    text-decoration:none;
+    color:#718096;
+    font-size:12px;
+    margin-top:15px;
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.message{
+    display:none;
+    padding:11px;
+    border-radius:10px;
+    font-size:12px;
+    margin-bottom:15px;
+    text-align:center;
+}
+
+.message.error{
+    display:block;
+    background:#fff0f0;
+    color:#d43b3b;
+}
+
+.message.success{
+    display:block;
+    background:#eaf8ef;
+    color:#23944c;
+}
+
+
+/* =========================================
+   NOT FOUND
+========================================= */
+
+.not-found{
+    background:#fff;
+    border:1px dashed #d9dfe7;
+    border-radius:16px;
+    padding:35px 20px;
+    text-align:center;
+    color:#8792a2;
+    font-size:12px;
+}
+
+.not-found strong{
+    display:block;
+    color:#18212f;
+    font-size:15px;
+    margin-bottom:7px;
+}
+
+
+/* =========================================
+   BOTTOM NAV
+========================================= */
+
+.bottom-nav{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:75px;
+    background:rgba(255,255,255,.97);
+    border-top:1px solid #e4e8ee;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    padding:5px 8px;
+}
+
+.nav-item{
+    width:65px;
+    height:55px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    text-decoration:none;
+    color:#8994a3;
+    font-size:10px;
+    border-radius:12px;
+}
+
+.nav-item span:first-child{
+    font-size:19px;
+}
+
+.nav-item.active{
+    color:#287be8;
+    background:#edf5ff;
+    font-weight:600;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:430px){
+
+    body{
+        background:#f5f7fa;
+    }
+
+    .phone{
+        width:100%;
+        height:100vh;
+        margin:0;
+        border-radius:0;
+        box-shadow:none;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="phone">
+
+<div class="app">
+
+
+<!-- ======================================
+     HEADER
+======================================= -->
+
+<header class="header">
+
+    <div class="header-top">
+
+        <button
+            class="back"
+            onclick="goBack()">
+
+            ‹
+
+        </button>
+
+        <h1>Edit Device</h1>
+
+    </div>
+
+</header>
+
+
+<main class="content">
+
+<div id="pageContent">
+
+
+<!-- ======================================
+     INTRO
+======================================= -->
+
+<div class="intro">
+
+    <h2>
+        Edit Device
+    </h2>
+
+    <p>
+        Update the information of your device
+        below.
+    </p>
+
+</div>
+
+
+<!-- ======================================
+     MESSAGE
+======================================= -->
+
+<div
+    id="message"
+    class="message">
+</div>
+
+
+<!-- ======================================
+     FORM
+======================================= -->
+
+<form
+    class="form-card"
+    id="editDeviceForm">
+
+
+    <!-- DEVICE NAME -->
+
+    <div class="field">
+
+        <label for="deviceName">
+            Device Name
+        </label>
+
+        <input
+            id="deviceName"
+            type="text"
+            placeholder="e.g. Dell Laptop"
+            required>
+
+    </div>
+
+
+    <!-- DEVICE TYPE -->
+
+    <div class="field">
+
+        <label for="deviceType">
+            Device Type
+        </label>
+
+        <select
+            id="deviceType"
+            required>
+
+            <option value="">
+                Select device type
+            </option>
+
+            <option value="Laptop">
+                Laptop
+            </option>
+
+            <option value="Desktop">
+                Desktop
+            </option>
+
+            <option value="Smartphone">
+                Smartphone
+            </option>
+
+            <option value="Tablet">
+                Tablet
+            </option>
+
+            <option value="Printer">
+                Printer
+            </option>
+
+            <option value="Audio">
+                Audio
+            </option>
+
+            <option value="Wearable">
+                Wearable
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- BRAND -->
+
+    <div class="field">
+
+        <label for="deviceBrand">
+            Brand
+        </label>
+
+        <input
+            id="deviceBrand"
+            type="text"
+            placeholder="e.g. Dell"
+            required>
+
+    </div>
+
+
+    <!-- STATUS -->
+
+    <div class="field">
+
+        <label for="deviceStatus">
+            Status
+        </label>
+
+        <select
+            id="deviceStatus"
+            required>
+
+            <option value="Working">
+                Working
+            </option>
+
+            <option value="Under Repair">
+                Under Repair
+            </option>
+
+            <option value="Not Working">
+                Not Working
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- DEVICE ICON -->
+
+    <div class="field">
+
+        <label>
+            Device Icon
+        </label>
+
+        <div class="icons">
+
+            <button
+                type="button"
+                class="icon-option"
+                data-icon="💻">
+
+                💻
+
+            </button>
+
+
+            <button
+                type="button"
+                class="icon-option"
+                data-icon="📱">
+
+                📱
+
+            </button>
+
+
+            <button
+                type="button"
+                class="icon-option"
+                data-icon="🖨️">
+
+                🖨️
+
+            </button>
+
+
+            <button
+                type="button"
+                class="icon-option"
+                data-icon="🔊">
+
+                🔊
+
+            </button>
+
+
+            <button
+                type="button"
+                class="icon-option"
+                data-icon="⌚">
+
+                ⌚
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SAVE -->
+
+    <button
+        type="submit"
+        class="save-btn">
+
+        Save Changes
+
+    </button>
+
+
+    <!-- CANCEL -->
+
+    <a
+        href="device-details.html"
+        class="cancel-btn">
+
+        Cancel
+
+    </a>
+
+
+</form>
+
+</div>
+
+</main>
+
+</div>
+
+
+<!-- ======================================
+     BOTTOM NAV
+======================================= -->
+
+<nav class="bottom-nav">
+
+    <a
+        href="home.html"
+        class="nav-item">
+
+        <span>⌂</span>
+        <span>Home</span>
+
+    </a>
+
+
+    <a
+        href="device-list.html"
+        class="nav-item active">
+
+        <span>💻</span>
+        <span>Devices</span>
+
+    </a>
+
+
+    <a
+        href="#"
+        class="nav-item">
+
+        <span>📊</span>
+        <span>Stats</span>
+
+    </a>
+
+
+    <a
+        href="#"
+        class="nav-item">
+
+        <span>⚙️</span>
+        <span>Settings</span>
+
+    </a>
+
+</nav>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   SELECTED ICON
+========================================= */
+
+let selectedIcon = "💻";
+
+
+/* =========================================
+   GET SELECTED DEVICE
+========================================= */
+
+function getSelectedDevice(){
+
+    const selectedId =
+        localStorage.getItem(
+            "selected_device_id"
+        );
+
+
+    if(!selectedId){
+        return null;
+    }
+
+
+    let devices = [];
+
+
+    try{
+
+        const saved =
+            localStorage.getItem(
+                "devicelog_devices"
+            );
+
+
+        if(saved){
+
+            devices =
+                JSON.parse(saved);
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        return null;
+
+    }
+
+
+    if(!Array.isArray(devices)){
+        return null;
+    }
+
+
+    return devices.find(function(device){
+
+        return device.id === selectedId;
+
+    }) || null;
+
+}
+
+
+/* =========================================
+   LOAD DEVICE DATA INTO FORM
+========================================= */
+
+function loadDevice(){
+
+    const device =
+        getSelectedDevice();
+
+
+    if(!device){
+
+        document.getElementById(
+            "pageContent"
+        ).innerHTML = `
+
+            <div class="not-found">
+
+                <strong>
+                    Device Not Found
+                </strong>
+
+                Please return to the
+                Devices page and select
+                a device again.
+
+                <br><br>
+
+                <a
+                    href="device-list.html"
+                    style="
+                        display:inline-block;
+                        background:#287be8;
+                        color:#fff;
+                        text-decoration:none;
+                        padding:10px 16px;
+                        border-radius:9px;
+                        font-weight:700;
+                        font-size:12px;
+                    ">
+
+                    Back to Devices
+
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    /* FILL FORM */
+
+    document.getElementById(
+        "deviceName"
+    ).value = device.name || "";
+
+
+    document.getElementById(
+        "deviceType"
+    ).value = device.type || "";
+
+
+    document.getElementById(
+        "deviceBrand"
+    ).value = device.brand || "";
+
+
+    document.getElementById(
+        "deviceStatus"
+    ).value =
+        device.status || "Working";
+
+
+    /* SELECT ICON */
+
+    selectedIcon =
+        device.icon || "💻";
+
+
+    document
+        .querySelectorAll(".icon-option")
+        .forEach(function(button){
+
+            button.classList.remove(
+                "selected"
+            );
+
+
+            if(
+                button.dataset.icon ===
+                selectedIcon
+            ){
+
+                button.classList.add(
+                    "selected"
+                );
+
+            }
+
+        });
+
+}
+
+
+/* =========================================
+   ICON SELECTION
+========================================= */
+
+document
+    .querySelectorAll(".icon-option")
+    .forEach(function(button){
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                document
+                    .querySelectorAll(".icon-option")
+                    .forEach(function(item){
+
+                        item.classList.remove(
+                            "selected"
+                        );
+
+                    });
+
+
+                this.classList.add(
+                    "selected"
+                );
+
+
+                selectedIcon =
+                    this.dataset.icon;
+
+            }
+        );
+
+    });
+
+
+/* =========================================
+   SAVE CHANGES
+========================================= */
+
+document
+    .getElementById("editDeviceForm")
+    .addEventListener(
+        "submit",
+        function(event){
+
+            event.preventDefault();
+
+
+            const selectedId =
+                localStorage.getItem(
+                    "selected_device_id"
+                );
+
+
+            if(!selectedId){
+
+                alert(
+                    "No device selected."
+                );
+
+                return;
+
+            }
+
+
+            const name =
+                document
+                .getElementById("deviceName")
+                .value
+                .trim();
+
+
+            const type =
+                document
+                .getElementById("deviceType")
+                .value;
+
+
+            const brand =
+                document
+                .getElementById("deviceBrand")
+                .value
+                .trim();
+
+
+            const status =
+                document
+                .getElementById("deviceStatus")
+                .value;
+
+
+            const message =
+                document.getElementById(
+                    "message"
+                );
+
+
+            /* VALIDATION */
+
+            if(
+                !name ||
+                !type ||
+                !brand
+            ){
+
+                message.className =
+                    "message error";
+
+                message.textContent =
+                    "Please complete all required fields.";
+
+                return;
+
+            }
+
+
+            let devices = [];
+
+
+            try{
+
+                const saved =
+                    localStorage.getItem(
+                        "devicelog_devices"
+                    );
+
+
+                if(saved){
+
+                    devices =
+                        JSON.parse(saved);
+
+                }
+
+
+                if(!Array.isArray(devices)){
+
+                    devices = [];
+
+                }
+
+            }catch(error){
+
+                console.error(error);
+
+                message.className =
+                    "message error";
+
+                message.textContent =
+                    "Unable to update device.";
+
+                return;
+
+            }
+
+
+            /* FIND DEVICE */
+
+            const index =
+                devices.findIndex(
+                    function(device){
+
+                        return device.id ===
+                            selectedId;
+
+                    }
+                );
+
+
+            if(index === -1){
+
+                message.className =
+                    "message error";
+
+                message.textContent =
+                    "Device not found.";
+
+                return;
+
+            }
+
+
+            /* UPDATE DEVICE */
+
+            devices[index] = {
+
+                ...devices[index],
+
+                name:name,
+                type:type,
+                brand:brand,
+                status:status,
+                icon:selectedIcon
+
+            };
+
+
+            /* SAVE UPDATED DEVICES */
+
+            localStorage.setItem(
+                "devicelog_devices",
+                JSON.stringify(devices)
+            );
+
+
+            /* SUCCESS MESSAGE */
+
+            message.className =
+                "message success";
+
+            message.textContent =
+                "Device updated successfully!";
+
+
+            /* RETURN TO DETAILS */
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "device-details.html";
+
+                },
+                600
+            );
+
+        }
+    );
+
+
+/* =========================================
+   BACK
+========================================= */
+
+function goBack(){
+
+    window.location.href =
+        "device-details.html";
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+loadDevice();
+
+</script>
+
+</body>
+
+</html>

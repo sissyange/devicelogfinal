@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>DeviceLog - Stats</title>
+
+<style>
+
+/* =========================================
+   RESET
+========================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#e9eef5;
+    color:#18212f;
+}
+
+
+/* =========================================
+   APP
+========================================= */
+
+.app{
+    width:390px;
+    height:844px;
+    max-width:100%;
+
+    margin:20px auto;
+
+    background:#f8fafc;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:35px;
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.15);
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.content{
+    height:calc(100% - 116px);
+
+    overflow-y:auto;
+
+    padding:20px;
+
+    padding-bottom:95px;
+}
+
+.content::-webkit-scrollbar{
+    width:0;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header{
+    background:#287be8;
+
+    color:white;
+
+    padding:28px 22px 25px;
+
+    border-radius:0 0 25px 25px;
+}
+
+.header h1{
+    font-size:25px;
+
+    margin-bottom:6px;
+}
+
+.header p{
+    font-size:14px;
+
+    opacity:.9;
+}
+
+
+/* =========================================
+   SECTION TITLE
+========================================= */
+
+.section-title{
+    font-size:18px;
+
+    font-weight:bold;
+
+    margin:5px 0 12px;
+}
+
+
+/* =========================================
+   DEVICE STATUS
+========================================= */
+
+.status-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.06);
+}
+
+
+.status-row{
+
+    margin-bottom:18px;
+}
+
+
+.status-row:last-child{
+
+    margin-bottom:0;
+}
+
+
+.status-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:8px;
+}
+
+
+.status-name{
+
+    font-size:14px;
+
+    font-weight:bold;
+}
+
+
+.status-number{
+
+    font-size:14px;
+
+    color:#6b7280;
+}
+
+
+/* =========================================
+   PROGRESS BAR
+========================================= */
+
+.progress{
+
+    width:100%;
+
+    height:10px;
+
+    background:#edf0f4;
+
+    border-radius:20px;
+
+    overflow:hidden;
+}
+
+
+.progress-bar{
+
+    height:100%;
+
+    width:0%;
+
+    border-radius:20px;
+
+    transition:width .4s ease;
+}
+
+
+.working{
+
+    background:#22c55e;
+}
+
+
+.repair{
+
+    background:#f59e0b;
+}
+
+
+.not-working{
+
+    background:#ef4444;
+}
+
+
+/* =========================================
+   DEVICE TYPES
+========================================= */
+
+.type-title{
+    font-size:18px;
+
+    font-weight:bold;
+
+    margin:22px 0 12px;
+}
+
+
+.type-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.06);
+}
+
+
+.type-row{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:13px 0;
+
+    border-bottom:1px solid #edf0f4;
+}
+
+
+.type-row:last-child{
+
+    border-bottom:none;
+}
+
+
+.type-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+
+.type-icon{
+
+    width:36px;
+
+    height:36px;
+
+    border-radius:11px;
+
+    background:#edf5ff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:18px;
+}
+
+
+.type-name{
+
+    font-size:14px;
+
+    font-weight:bold;
+}
+
+
+.type-count{
+
+    background:#edf5ff;
+
+    color:#287be8;
+
+    padding:6px 10px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:bold;
+}
+
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.empty{
+
+    text-align:center;
+
+    padding:25px 10px;
+
+    color:#7b8491;
+
+    font-size:14px;
+}
+
+
+/* =========================================
+   BOTTOM NAVIGATION
+   SAME AS HOME + DEVICES
+========================================= */
+
+.bottom-nav{
+
+    position:absolute;
+
+    bottom:0;
+
+    left:0;
+
+    width:100%;
+
+    height:75px;
+
+    background:#ffffff;
+
+    border-top:1px solid #e4e8ee;
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    padding:5px 8px;
+
+    z-index:100;
+}
+
+
+.nav-item{
+
+    width:65px;
+
+    height:55px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:4px;
+
+    text-decoration:none;
+
+    color:#8994a3;
+
+    font-size:10px;
+
+    font-weight:400;
+
+    border-radius:12px;
+
+    flex-shrink:0;
+
+    -webkit-tap-highlight-color:transparent;
+}
+
+
+.nav-item .nav-icon{
+
+    width:19px;
+
+    height:19px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:17px;
+
+    line-height:1;
+}
+
+
+.nav-item.active{
+
+    color:#287be8;
+
+    background:#edf5ff;
+
+    font-weight:600;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:430px){
+
+    body{
+        background:#f5f7fa;
+    }
+
+    .app{
+        width:100%;
+        height:100vh;
+
+        margin:0;
+
+        border-radius:0;
+
+        box-shadow:none;
+    }
+
+}
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+body.dark{
+    background:#0f172a;
+    color:#f1f5f9;
+}
+
+body.dark .app{
+    background:#111827;
+    box-shadow:0 10px 35px rgba(0,0,0,.35);
+}
+
+body.dark .header{
+    background:#1d4ed8;
+    color:#fff;
+}
+
+body.dark .section-title,
+body.dark .type-title,
+body.dark .status-name,
+body.dark .type-name{
+    color:#f8fafc;
+}
+
+body.dark .status-card,
+body.dark .type-card{
+    background:#1f2937;
+    box-shadow:0 5px 15px rgba(0,0,0,.25);
+}
+
+body.dark .status-number{
+    color:#94a3b8;
+}
+
+body.dark .progress{
+    background:#374151;
+}
+
+body.dark .type-row{
+    border-bottom-color:#374151;
+}
+
+body.dark .type-icon{
+    background:#1e3a5f;
+}
+
+body.dark .type-count{
+    background:#1e3a5f;
+    color:#60a5fa;
+}
+
+body.dark .empty{
+    color:#94a3b8;
+}
+
+body.dark .bottom-nav{
+    background:#1f2937;
+    border-top-color:#374151;
+}
+
+body.dark .nav-item{
+    color:#94a3b8;
+}
+
+body.dark .nav-item.active{
+    color:#60a5fa;
+    background:#1e3a5f;
+}
+
+@media(max-width:430px){
+    body.dark{
+        background:#111827;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
+    <div class="header">
+
+        <h1>
+            Statistics
+        </h1>
+
+        <p>
+            Overview of your device inventory
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================
+         CONTENT
+    ====================================== -->
+
+    <div class="content">
+
+
+        <!-- =================================
+             DEVICE STATUS
+        ================================== -->
+
+        <div class="section-title">
+
+            Device Status
+
+        </div>
+
+
+        <div class="status-card">
+
+
+            <!-- WORKING -->
+
+            <div class="status-row">
+
+                <div class="status-header">
+
+                    <span class="status-name">
+                        Working
+                    </span>
+
+                    <span class="status-number">
+
+                        <span id="workingCount">
+                            0
+                        </span>
+
+                    </span>
+
+                </div>
+
+
+                <div class="progress">
+
+                    <div
+                        id="workingBar"
+                        class="progress-bar working">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- UNDER REPAIR -->
+
+            <div class="status-row">
+
+                <div class="status-header">
+
+                    <span class="status-name">
+                        Under Repair
+                    </span>
+
+                    <span class="status-number">
+
+                        <span id="repairCount">
+                            0
+                        </span>
+
+                    </span>
+
+                </div>
+
+
+                <div class="progress">
+
+                    <div
+                        id="repairBar"
+                        class="progress-bar repair">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- NOT WORKING -->
+
+            <div class="status-row">
+
+                <div class="status-header">
+
+                    <span class="status-name">
+                        Not Working
+                    </span>
+
+                    <span class="status-number">
+
+                        <span id="notWorkingCount">
+                            0
+                        </span>
+
+                    </span>
+
+                </div>
+
+
+                <div class="progress">
+
+                    <div
+                        id="notWorkingBar"
+                        class="progress-bar not-working">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             DEVICE TYPES
+        ================================== -->
+
+        <div class="type-title">
+
+            Device Types
+
+        </div>
+
+
+        <div
+            class="type-card"
+            id="deviceTypes">
+
+            <div class="empty">
+
+                No devices available.
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================
+         BOTTOM NAVIGATION
+    ====================================== -->
+
+    <nav class="bottom-nav">
+
+
+        <!-- HOME -->
+
+        <a
+            href="home.html"
+            class="nav-item">
+
+            <div class="nav-icon">
+                🏠
+            </div>
+
+            <span>
+                Home
+            </span>
+
+        </a>
+
+
+
+        <!-- DEVICES -->
+
+        <a
+            href="device-list.html"
+            class="nav-item">
+
+            <div class="nav-icon">
+                📱
+            </div>
+
+            <span>
+                Devices
+            </span>
+
+        </a>
+
+
+
+        <!-- STATS -->
+
+        <a
+            href="stats.html"
+            class="nav-item active">
+
+            <div class="nav-icon">
+                📊
+            </div>
+
+            <span>
+                Stats
+            </span>
+
+        </a>
+
+
+
+        <!-- SETTINGS -->
+
+        <a
+            href="settings.html"
+            class="nav-item">
+
+            <div class="nav-icon">
+                ⚙️
+            </div>
+
+            <span>
+                Settings
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+</div>
+
+
+
+<script>
+
+/* =================================
+   GET DEVICES
+================================= */
+
+
+/* =================================
+   DARK MODE
+================================= */
+
+function loadDarkMode(){
+
+    const darkMode =
+        localStorage.getItem("devicelog_darkmode") === "true";
+
+    if(darkMode){
+        document.body.classList.add("dark");
+    }else{
+        document.body.classList.remove("dark");
+    }
+}
+
+function getDevices(){
+
+    const saved =
+        localStorage.getItem(
+            "devicelog_devices"
+        );
+
+
+    if(saved){
+
+        try{
+
+            return JSON.parse(saved);
+
+        }
+
+        catch(error){
+
+            return [];
+
+        }
+
+    }
+
+
+    return [];
+
+}
+
+
+
+/* =================================
+   UPDATE DEVICE STATUS
+================================= */
+
+function updateStats(){
+
+    loadDarkMode();
+
+    const devices =
+        getDevices();
+
+
+    const working =
+        devices.filter(
+            device =>
+            device.status === "Working"
+        ).length;
+
+
+    const repair =
+        devices.filter(
+            device =>
+            device.status === "Under Repair"
+        ).length;
+
+
+    const notWorking =
+        devices.filter(
+            device =>
+            device.status === "Not Working"
+        ).length;
+
+
+    /* ===============================
+       NUMBERS
+    =============================== */
+
+    document.getElementById(
+        "workingCount"
+    ).textContent =
+        working;
+
+
+    document.getElementById(
+        "repairCount"
+    ).textContent =
+        repair;
+
+
+    document.getElementById(
+        "notWorkingCount"
+    ).textContent =
+        notWorking;
+
+
+    /* ===============================
+       TOTAL FOR PERCENTAGE
+    =============================== */
+
+    const total =
+        working +
+        repair +
+        notWorking;
+
+
+    /* ===============================
+       PROGRESS
+    =============================== */
+
+    if(total > 0){
+
+        document.getElementById(
+            "workingBar"
+        ).style.width =
+            (working / total * 100) + "%";
+
+
+        document.getElementById(
+            "repairBar"
+        ).style.width =
+            (repair / total * 100) + "%";
+
+
+        document.getElementById(
+            "notWorkingBar"
+        ).style.width =
+            (notWorking / total * 100) + "%";
+
+    }
+
+    else{
+
+        document.getElementById(
+            "workingBar"
+        ).style.width =
+            "0%";
+
+
+        document.getElementById(
+            "repairBar"
+        ).style.width =
+            "0%";
+
+
+        document.getElementById(
+            "notWorkingBar"
+        ).style.width =
+            "0%";
+
+    }
+
+
+    /* ===============================
+       DEVICE TYPES
+    =============================== */
+
+    updateDeviceTypes(
+        devices
+    );
+
+}
+
+
+
+/* =================================
+   DEVICE TYPES
+================================= */
+
+function updateDeviceTypes(
+    devices
+){
+
+    const container =
+        document.getElementById(
+            "deviceTypes"
+        );
+
+
+    if(devices.length === 0){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                No devices available.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const typeCounts = {};
+
+
+    devices.forEach(
+        device => {
+
+            const type =
+                device.type || "Other";
+
+
+            if(typeCounts[type]){
+
+                typeCounts[type]++;
+
+            }
+
+            else{
+
+                typeCounts[type] = 1;
+
+            }
+
+        }
+    );
+
+
+    container.innerHTML = "";
+
+
+    Object.keys(typeCounts)
+        .forEach(
+            type => {
+
+
+                let icon =
+                    "📦";
+
+
+                if(type === "Laptop"){
+
+                    icon =
+                        "💻";
+
+                }
+
+                else if(
+                    type === "Smartphone"
+                ){
+
+                    icon =
+                        "📱";
+
+                }
+
+                else if(
+                    type === "Printer"
+                ){
+
+                    icon =
+                        "🖨️";
+
+                }
+
+                else if(
+                    type === "Audio"
+                ){
+
+                    icon =
+                        "🔊";
+
+                }
+
+                else if(
+                    type === "Wearable"
+                ){
+
+                    icon =
+                        "⌚";
+
+                }
+
+
+                const row =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                row.className =
+                    "type-row";
+
+
+                row.innerHTML = `
+
+                    <div class="type-left">
+
+                        <div class="type-icon">
+
+                            ${icon}
+
+                        </div>
+
+
+                        <div class="type-name">
+
+                            ${type}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="type-count">
+
+                        ${typeCounts[type]}
+
+                    </div>
+
+                `;
+
+
+                container.appendChild(
+                    row
+                );
+
+            }
+        );
+
+}
+
+
+
+/* =================================
+   INITIAL LOAD
+================================= */
+
+loadDarkMode();
+updateStats();
+
+
+
+/* =================================
+   REFRESH WHEN RETURNING
+================================= */
+
+window.addEventListener(
+    "pageshow",
+    updateStats
+);
+
+
+/* =================================
+   REFRESH WHEN STORAGE CHANGES
+================================= */
+
+window.addEventListener(
+    "storage",
+    function(){
+        loadDarkMode();
+        updateStats();
+    }
+);
+
+</script>
+
+
+</body>
+</html>

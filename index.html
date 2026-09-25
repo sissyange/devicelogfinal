@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>DeviceLog</title>
+
+
+    <style>
+
+        /* ========================================
+           RESET
+           ======================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* ========================================
+           BODY
+           ======================================== */
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #ffffff;
+
+            overflow: hidden;
+        }
+
+
+        /* ========================================
+           SPLASH SCREEN
+           ======================================== */
+
+        .splash {
+            width: 100%;
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            background: #ffffff;
+        }
+
+
+        /* ========================================
+           CONTENT
+           ======================================== */
+
+        .splash-inner {
+            width: 100%;
+            max-width: 350px;
+
+            padding: 30px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+        }
+
+
+        /* ========================================
+           LOGO
+           ======================================== */
+
+        .logo {
+            width: 100px;
+            height: 100px;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            font-size: 65px;
+
+            margin-bottom: 18px;
+
+            background: #edf5ff;
+
+            border-radius: 24px;
+        }
+
+
+        /* ========================================
+           APP NAME
+           ======================================== */
+
+        .splash h1 {
+            font-size: 38px;
+
+            font-weight: 700;
+
+            color: #18212f;
+
+            margin-bottom: 10px;
+        }
+
+
+        /* ========================================
+           DESCRIPTION
+           ======================================== */
+
+        .splash p {
+            max-width: 280px;
+
+            font-size: 15px;
+
+            line-height: 1.5;
+
+            color: #718096;
+
+            margin-bottom: 35px;
+        }
+
+
+        /* ========================================
+           LOADER
+           ======================================== */
+
+        .loader {
+            width: 70px;
+            height: 5px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            background: #dce2e9;
+
+            border-radius: 10px;
+        }
+
+
+        /* ========================================
+           LOADING BAR
+           ======================================== */
+
+        .loader i {
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 35px;
+            height: 5px;
+
+            background: #287be8;
+
+            border-radius: 10px;
+
+            animation:
+                loading
+                1.5s
+                ease-in-out
+                infinite;
+        }
+
+
+        /* ========================================
+           ANIMATION
+           ======================================== */
+
+        @keyframes loading {
+
+            0% {
+                transform:
+                    translateX(-35px);
+            }
+
+            50% {
+                transform:
+                    translateX(20px);
+            }
+
+            100% {
+                transform:
+                    translateX(70px);
+            }
+
+        }
+
+
+        /* ========================================
+           MOBILE
+           ======================================== */
+
+        @media (max-width: 480px) {
+
+            .logo {
+                width: 85px;
+                height: 85px;
+
+                font-size: 55px;
+            }
+
+            .splash h1 {
+                font-size: 32px;
+            }
+
+            .splash p {
+                font-size: 14px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ========================================
+         SPLASH SCREEN
+         ======================================== -->
+
+    <div class="splash">
+
+        <div class="splash-inner">
+
+
+            <div class="logo">
+                💻
+            </div>
+
+
+            <h1>
+                DeviceLog
+            </h1>
+
+
+            <p>
+                Keep track of your devices
+                in one place.
+            </p>
+
+
+            <div class="loader">
+                <i></i>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================
+         SPLASH SCRIPT
+         ======================================== -->
+
+    <script>
+
+        /*
+         * Wait for 2 seconds,
+         * then open the Home Dashboard.
+         */
+
+        setTimeout(function () {
+
+            window.location.href = "home.html";
+
+        }, 2000);
+
+    </script>
+
+
+</body>
+
+</html>

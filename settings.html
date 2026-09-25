@@ -1,0 +1,2219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeviceLog - Settings</title>
+
+<style>
+
+/* =========================================
+   RESET
+========================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#e9eef5;
+    color:#18212f;
+}
+
+
+/* =========================================
+   APP PHONE
+========================================= */
+
+.app{
+    width:390px;
+    height:844px;
+    max-width:100%;
+    margin:20px auto;
+    background:#f8fafc;
+    position:relative;
+    overflow:hidden;
+    border-radius:35px;
+    box-shadow:0 10px 35px rgba(0,0,0,.15);
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.content{
+    height:calc(100% - 75px);
+    overflow-y:auto;
+    padding-bottom:90px;
+}
+
+.content::-webkit-scrollbar{
+    width:0;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header{
+    background:#287be8;
+    color:white;
+    padding:27px 22px 24px;
+    border-radius:0 0 25px 25px;
+}
+
+.header h1{
+    font-size:25px;
+    margin-bottom:6px;
+}
+
+.header p{
+    font-size:14px;
+    opacity:.9;
+}
+
+
+/* =========================================
+   PROFILE
+========================================= */
+
+.profile-section{
+    padding:20px;
+}
+
+.profile-card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.06);
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.avatar{
+    width:65px;
+    height:65px;
+    min-width:65px;
+
+    border-radius:50%;
+
+    background:#287be8;
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:27px;
+    font-weight:bold;
+}
+
+.profile-info{
+    flex:1;
+    min-width:0;
+}
+
+.profile-info h2{
+    font-size:18px;
+    margin-bottom:5px;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.profile-info p{
+    font-size:12px;
+    color:#7b8491;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.edit-btn{
+    border:none;
+    background:#edf5ff;
+    color:#287be8;
+
+    padding:9px 12px;
+
+    border-radius:10px;
+
+    font-size:12px;
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.create-profile{
+    margin-top:12px;
+
+    width:100%;
+
+    padding:13px;
+
+    border:none;
+    border-radius:12px;
+
+    background:#287be8;
+    color:white;
+
+    font-size:14px;
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+
+/* =========================================
+   SECTION
+========================================= */
+
+.section{
+    padding:0 20px;
+    margin-bottom:15px;
+}
+
+.section-title{
+    font-size:17px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+
+/* =========================================
+   SETTINGS CARD
+========================================= */
+
+.settings-card{
+    background:white;
+
+    border-radius:18px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.06);
+
+    overflow:hidden;
+}
+
+
+/* =========================================
+   CLICKABLE SETTING
+========================================= */
+
+.setting-item{
+    width:100%;
+
+    border:none;
+
+    background:white;
+
+    padding:16px;
+
+    display:flex;
+    align-items:center;
+
+    gap:13px;
+
+    text-align:left;
+
+    border-bottom:1px solid #edf0f4;
+
+    cursor:pointer;
+
+    -webkit-tap-highlight-color:transparent;
+}
+
+.setting-item:last-child{
+    border-bottom:none;
+}
+
+.setting-item:active{
+    background:#f7faff;
+}
+
+
+/* =========================================
+   SETTING ICON
+========================================= */
+
+.setting-icon{
+    width:38px;
+    height:38px;
+
+    border-radius:11px;
+
+    background:#edf5ff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:18px;
+
+    flex-shrink:0;
+}
+
+
+/* =========================================
+   SETTING TEXT
+========================================= */
+
+.setting-text{
+    flex:1;
+}
+
+.setting-text strong{
+    display:block;
+
+    font-size:14px;
+
+    color:#18212f;
+
+    margin-bottom:3px;
+}
+
+.setting-text span{
+    display:block;
+
+    font-size:11px;
+
+    color:#8994a3;
+}
+
+
+/* =========================================
+   ARROW
+========================================= */
+
+.arrow{
+    font-size:20px;
+    color:#a1a9b4;
+}
+
+
+/* =========================================
+   DARK MODE SWITCH
+========================================= */
+
+.switch{
+    position:relative;
+
+    width:42px;
+    height:23px;
+
+    flex-shrink:0;
+}
+
+.switch input{
+    opacity:0;
+
+    width:0;
+    height:0;
+}
+
+.slider{
+    position:absolute;
+
+    inset:0;
+
+    background:#d9dee6;
+
+    border-radius:30px;
+
+    transition:.3s;
+}
+
+.slider:before{
+    content:"";
+
+    position:absolute;
+
+    width:17px;
+    height:17px;
+
+    left:3px;
+    top:3px;
+
+    background:white;
+
+    border-radius:50%;
+
+    transition:.3s;
+
+    box-shadow:0 1px 3px rgba(0,0,0,.2);
+}
+
+.switch input:checked + .slider{
+    background:#287be8;
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(19px);
+}
+
+
+/* =========================================
+   DETAIL PANEL
+========================================= */
+
+.detail-panel{
+    display:none;
+
+    background:white;
+
+    border-radius:18px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.06);
+
+    overflow:hidden;
+}
+
+.detail-panel.show{
+    display:block;
+}
+
+.detail-header{
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    padding:16px;
+
+    border-bottom:1px solid #edf0f4;
+}
+
+.back-btn{
+    width:34px;
+    height:34px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#edf5ff;
+    color:#287be8;
+
+    font-size:18px;
+
+    cursor:pointer;
+}
+
+.detail-header-text{
+    flex:1;
+}
+
+.detail-header-text strong{
+    display:block;
+
+    font-size:16px;
+
+    margin-bottom:3px;
+}
+
+.detail-header-text span{
+    display:block;
+
+    font-size:11px;
+
+    color:#8994a3;
+}
+
+
+/* =========================================
+   REFERENCE DETAILS
+========================================= */
+
+.reference-content{
+    padding:16px;
+}
+
+.reference-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #edf0f4;
+}
+
+.reference-row:last-child{
+    border-bottom:none;
+}
+
+.reference-label{
+    font-size:13px;
+    color:#6b7280;
+}
+
+.reference-value{
+    font-size:13px;
+    font-weight:bold;
+    color:#18212f;
+
+    text-align:right;
+}
+
+
+/* =========================================
+   ABOUT CONTENT
+========================================= */
+
+.about-content{
+    padding:18px;
+}
+
+.about-logo{
+    width:60px;
+    height:60px;
+
+    border-radius:16px;
+
+    background:#edf5ff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:30px;
+
+    margin-bottom:13px;
+}
+
+.about-title{
+    font-size:19px;
+    font-weight:bold;
+
+    margin-bottom:8px;
+}
+
+.about-text{
+    font-size:12px;
+    line-height:1.7;
+
+    color:#6b7280;
+}
+
+.about-divider{
+    height:1px;
+
+    background:#edf0f4;
+
+    margin:16px 0;
+}
+
+.about-info{
+    font-size:12px;
+
+    color:#6b7280;
+
+    line-height:1.7;
+}
+
+.about-info strong{
+    color:#18212f;
+}
+
+
+/* =========================================
+   DATA MANAGEMENT
+========================================= */
+
+.data-content{
+    padding:16px;
+}
+
+.data-warning{
+    background:#fff7df;
+
+    border-radius:12px;
+
+    padding:13px;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+    color:#8a6500;
+
+    margin-bottom:13px;
+}
+
+.reset-btn{
+    width:100%;
+
+    border:none;
+
+    background:#fff0f0;
+
+    color:#e53935;
+
+    padding:14px;
+
+    border-radius:13px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.reset-btn:active{
+    background:#ffe2e2;
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.modal{
+    display:none;
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    z-index:300;
+
+    align-items:flex-end;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+
+    background:white;
+
+    border-radius:25px 25px 0 0;
+
+    padding:22px;
+
+    max-height:90%;
+
+    overflow-y:auto;
+}
+
+.modal-title{
+    font-size:20px;
+
+    font-weight:bold;
+
+    margin-bottom:5px;
+}
+
+.modal-subtitle{
+    color:#8994a3;
+
+    font-size:12px;
+
+    margin-bottom:20px;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    margin-bottom:7px;
+}
+
+.form-group input{
+    width:100%;
+
+    padding:13px;
+
+    border:1px solid #dce2e9;
+
+    border-radius:11px;
+
+    outline:none;
+
+    font-size:13px;
+}
+
+.form-group input:focus{
+    border-color:#287be8;
+}
+
+.modal-buttons{
+    display:flex;
+
+    gap:10px;
+
+    margin-top:8px;
+}
+
+.cancel-btn,
+.save-btn{
+    flex:1;
+
+    padding:13px;
+
+    border:none;
+
+    border-radius:11px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.cancel-btn{
+    background:#edf0f4;
+    color:#596273;
+}
+
+.save-btn{
+    background:#287be8;
+    color:white;
+}
+
+
+/* =========================================
+   BOTTOM NAVIGATION
+========================================= */
+
+.bottom-nav{
+    position:absolute;
+
+    bottom:0;
+    left:0;
+
+    width:100%;
+    height:75px;
+
+    background:#ffffff;
+
+    border-top:1px solid #e4e8ee;
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    padding:5px 8px;
+
+    z-index:100;
+}
+
+.nav-item{
+    width:65px;
+    height:55px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:4px;
+
+    text-decoration:none;
+
+    color:#8994a3;
+
+    font-size:10px;
+
+    font-weight:400;
+
+    border-radius:12px;
+
+    flex-shrink:0;
+
+    -webkit-tap-highlight-color:transparent;
+}
+
+.nav-item .nav-icon{
+    width:19px;
+    height:19px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:17px;
+
+    line-height:1;
+}
+
+.nav-item.active{
+    color:#287be8;
+
+    background:#edf5ff;
+
+    font-weight:600;
+}
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+body.dark{
+    background:#111827;
+}
+
+body.dark .app{
+    background:#111827;
+}
+
+body.dark .content{
+    background:#111827;
+}
+
+body.dark .profile-card,
+body.dark .settings-card,
+body.dark .setting-item,
+body.dark .detail-panel{
+    background:#1f2937;
+}
+
+body.dark .setting-text strong{
+    color:#f3f4f6;
+}
+
+body.dark .setting-text span{
+    color:#9ca3af;
+}
+
+body.dark .setting-item{
+    border-bottom-color:#374151;
+}
+
+body.dark .detail-header{
+    border-bottom-color:#374151;
+}
+
+body.dark .reference-row{
+    border-bottom-color:#374151;
+}
+
+body.dark .reference-label{
+    color:#9ca3af;
+}
+
+body.dark .reference-value{
+    color:#f3f4f6;
+}
+
+body.dark .about-text,
+body.dark .about-info{
+    color:#9ca3af;
+}
+
+body.dark .about-info strong{
+    color:#f3f4f6;
+}
+
+body.dark .about-divider{
+    background:#374151;
+}
+
+body.dark .data-warning{
+    background:#3b321c;
+}
+
+body.dark .modal-box{
+    background:#1f2937;
+    color:white;
+}
+
+body.dark .form-group input{
+    background:#111827;
+    color:white;
+    border-color:#374151;
+}
+
+body.dark .cancel-btn{
+    background:#374151;
+    color:white;
+}
+
+body.dark .bottom-nav{
+    background:#1f2937;
+    border-top-color:#374151;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:430px){
+
+    body{
+        background:#f5f7fa;
+    }
+
+    .app{
+        width:100%;
+        height:100vh;
+
+        margin:0;
+
+        border-radius:0;
+
+        box-shadow:none;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- =====================================
+         CONTENT
+    ====================================== -->
+
+    <div class="content">
+
+
+        <!-- =================================
+             HEADER
+        ================================== -->
+
+        <div class="header">
+
+            <h1>
+                Settings
+            </h1>
+
+            <p>
+                Manage your profile and app preferences
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================
+             PROFILE
+        ================================== -->
+
+        <div class="profile-section">
+
+            <div class="profile-card">
+
+
+                <div
+                    class="avatar"
+                    id="profileAvatar">
+
+                    ?
+
+                </div>
+
+
+                <div class="profile-info">
+
+                    <h2 id="profileName">
+                        Create Profile
+                    </h2>
+
+                    <p id="profileEmail">
+                        Add your profile information
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="edit-btn"
+                    onclick="openProfileModal()">
+
+                    Edit
+
+                </button>
+
+
+            </div>
+
+
+            <button
+                class="create-profile"
+                id="createProfileBtn"
+                onclick="openProfileModal()">
+
+                + Create Profile
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================
+             APP SETTINGS
+        ================================== -->
+
+        <div class="section">
+
+            <div class="section-title">
+                App Settings
+            </div>
+
+
+            <div class="settings-card">
+
+
+                <!-- DARK MODE -->
+
+                <div class="setting-item">
+
+                    <div class="setting-icon">
+                        🌙
+                    </div>
+
+
+                    <div class="setting-text">
+
+                        <strong>
+                            Dark Mode
+                        </strong>
+
+                        <span>
+                            Change the appearance of the app
+                        </span>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="darkModeToggle"
+                            onchange="toggleDarkMode()">
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             APP REFERENCES MENU
+        ================================== -->
+
+        <div class="section">
+
+            <div class="settings-card">
+
+                <button
+                    class="setting-item"
+                    onclick="showPanel('referencesPanel')">
+
+
+                    <div class="setting-icon">
+                        📚
+                    </div>
+
+
+                    <div class="setting-text">
+
+                        <strong>
+                            App References
+                        </strong>
+
+                        <span>
+                            Application information and details
+                        </span>
+
+                    </div>
+
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             APP REFERENCES PANEL
+        ================================== -->
+
+        <div
+            class="section"
+            id="referencesPanel"
+            style="display:none;">
+
+            <div class="detail-panel show">
+
+
+                <div class="detail-header">
+
+                    <button
+                        class="back-btn"
+                        onclick="hidePanel('referencesPanel')">
+
+                        ‹
+
+                    </button>
+
+
+                    <div class="detail-header-text">
+
+                        <strong>
+                            App References
+                        </strong>
+
+                        <span>
+                            DeviceLog application information
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="reference-content">
+
+
+                    <div class="reference-row">
+
+                        <span class="reference-label">
+                            Application
+                        </span>
+
+                        <span class="reference-value">
+                            DeviceLog
+                        </span>
+
+                    </div>
+
+
+                    <div class="reference-row">
+
+                        <span class="reference-label">
+                            Version
+                        </span>
+
+                        <span class="reference-value">
+                            1.0.0
+                        </span>
+
+                    </div>
+
+
+                    <div class="reference-row">
+
+                        <span class="reference-label">
+                            Platform
+                        </span>
+
+                        <span class="reference-value">
+                            Web Application
+                        </span>
+
+                    </div>
+
+
+                    <div class="reference-row">
+
+                        <span class="reference-label">
+                            Storage
+                        </span>
+
+                        <span class="reference-value">
+                            Local Storage
+                        </span>
+
+                    </div>
+
+
+                    <div class="reference-row">
+
+                        <span class="reference-label">
+                            Status
+                        </span>
+
+                        <span class="reference-value">
+                            Offline Ready
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             ABOUT DEVICELOG MENU
+        ================================== -->
+
+        <div class="section">
+
+            <div class="settings-card">
+
+                <button
+                    class="setting-item"
+                    onclick="showPanel('aboutPanel')">
+
+
+                    <div class="setting-icon">
+                        ℹ️
+                    </div>
+
+
+                    <div class="setting-text">
+
+                        <strong>
+                            About DeviceLog
+                        </strong>
+
+                        <span>
+                            Learn more about this application
+                        </span>
+
+                    </div>
+
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             ABOUT DEVICELOG PANEL
+        ================================== -->
+
+        <div
+            class="section"
+            id="aboutPanel"
+            style="display:none;">
+
+            <div class="detail-panel show">
+
+
+                <div class="detail-header">
+
+                    <button
+                        class="back-btn"
+                        onclick="hidePanel('aboutPanel')">
+
+                        ‹
+
+                    </button>
+
+
+                    <div class="detail-header-text">
+
+                        <strong>
+                            About DeviceLog
+                        </strong>
+
+                        <span>
+                            Application information
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="about-content">
+
+
+                    <div class="about-logo">
+                        💻
+                    </div>
+
+
+                    <div class="about-title">
+                        DeviceLog
+                    </div>
+
+
+                    <div class="about-text">
+
+                        DeviceLog is a simple device inventory
+                        management application designed to help
+                        users record, organize, monitor, and manage
+                        their personal devices.
+
+                    </div>
+
+
+                    <div class="about-divider"></div>
+
+
+                    <div class="about-info">
+
+                        <strong>
+                            Application Version:
+                        </strong>
+                        1.0.0
+
+                        <br>
+
+                        <strong>
+                            Platform:
+                        </strong>
+                        Web Application
+
+                        <br>
+
+                        <strong>
+                            Storage:
+                        </strong>
+                        Local Storage
+
+                        <br>
+
+                        <strong>
+                            Availability:
+                        </strong>
+                        Offline Ready
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             DATA MANAGEMENT MENU
+        ================================== -->
+
+        <div class="section">
+
+            <div class="settings-card">
+
+                <button
+                    class="setting-item"
+                    onclick="showPanel('dataPanel')">
+
+
+                    <div class="setting-icon">
+                        🗑️
+                    </div>
+
+
+                    <div class="setting-text">
+
+                        <strong>
+                            Data Management
+                        </strong>
+
+                        <span>
+                            Manage your saved application data
+                        </span>
+
+                    </div>
+
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             DATA MANAGEMENT PANEL
+        ================================== -->
+
+        <div
+            class="section"
+            id="dataPanel"
+            style="display:none;">
+
+            <div class="detail-panel show">
+
+
+                <div class="detail-header">
+
+                    <button
+                        class="back-btn"
+                        onclick="hidePanel('dataPanel')">
+
+                        ‹
+
+                    </button>
+
+
+                    <div class="detail-header-text">
+
+                        <strong>
+                            Data Management
+                        </strong>
+
+                        <span>
+                            Manage your saved data
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="data-content">
+
+
+                    <div class="data-warning">
+
+                        ⚠️ Resetting app data will remove
+                        your saved profile and saved devices
+                        from this browser.
+
+                    </div>
+
+
+                    <button
+                        class="reset-btn"
+                        onclick="resetAppData()">
+
+                        🗑️ Reset App Data
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================
+         BOTTOM NAVIGATION
+    ====================================== -->
+
+    <nav class="bottom-nav">
+
+
+        <a
+            href="home.html"
+            class="nav-item">
+
+            <div class="nav-icon">
+                🏠
+            </div>
+
+            <span>
+                Home
+            </span>
+
+        </a>
+
+
+        <a
+            href="device-list.html"
+            class="nav-item">
+
+            <div class="nav-icon">
+                📱
+            </div>
+
+            <span>
+                Devices
+            </span>
+
+        </a>
+
+
+        <a
+            href="stats.html"
+            class="nav-item">
+
+            <div class="nav-icon">
+                📊
+            </div>
+
+            <span>
+                Stats
+            </span>
+
+        </a>
+
+
+        <a
+            href="settings.html"
+            class="nav-item active">
+
+            <div class="nav-icon">
+                ⚙️
+            </div>
+
+            <span>
+                Settings
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+
+    <!-- =====================================
+         PROFILE MODAL
+    ====================================== -->
+
+    <div
+        class="modal"
+        id="profileModal">
+
+
+        <div class="modal-box">
+
+
+            <div class="modal-title">
+
+                <span id="modalTitle">
+                    Create Profile
+                </span>
+
+            </div>
+
+
+            <div class="modal-subtitle">
+
+                Enter your personal information
+
+            </div>
+
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+                <label for="nameInput">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="nameInput"
+                    placeholder="Enter your name">
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label for="emailInput">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="emailInput"
+                    placeholder="Enter your email">
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div class="form-group">
+
+                <label for="phoneInput">
+                    Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="phoneInput"
+                    placeholder="Enter your phone number">
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="modal-buttons">
+
+
+                <button
+                    class="cancel-btn"
+                    onclick="closeProfileModal()">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    class="save-btn"
+                    onclick="saveProfile()">
+
+                    Save Profile
+
+                </button>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================
+   PROFILE
+========================================= */
+
+function loadProfile(){
+
+    let profile = null;
+
+    try{
+
+        profile =
+            JSON.parse(
+                localStorage.getItem(
+                    "devicelog_profile"
+                )
+            );
+
+    }
+    catch(error){
+
+        profile = null;
+
+    }
+
+
+    if(profile && profile.name){
+
+        document.getElementById(
+            "profileName"
+        ).textContent =
+            profile.name;
+
+
+        document.getElementById(
+            "profileEmail"
+        ).textContent =
+            profile.email ||
+            "No email added";
+
+
+        const firstLetter =
+            profile.name
+                .trim()
+                .charAt(0)
+                .toUpperCase();
+
+
+        document.getElementById(
+            "profileAvatar"
+        ).textContent =
+            firstLetter;
+
+
+        document.getElementById(
+            "createProfileBtn"
+        ).style.display =
+            "none";
+
+    }
+    else{
+
+        document.getElementById(
+            "profileName"
+        ).textContent =
+            "Create Profile";
+
+
+        document.getElementById(
+            "profileEmail"
+        ).textContent =
+            "Add your profile information";
+
+
+        document.getElementById(
+            "profileAvatar"
+        ).textContent =
+            "?";
+
+
+        document.getElementById(
+            "createProfileBtn"
+        ).style.display =
+            "block";
+
+    }
+
+}
+
+
+/* =========================================
+   OPEN PROFILE
+========================================= */
+
+function openProfileModal(){
+
+    let profile = null;
+
+    try{
+
+        profile =
+            JSON.parse(
+                localStorage.getItem(
+                    "devicelog_profile"
+                )
+            );
+
+    }
+    catch(error){
+
+        profile = null;
+
+    }
+
+
+    if(profile){
+
+        document.getElementById(
+            "modalTitle"
+        ).textContent =
+            "Edit Profile";
+
+
+        document.getElementById(
+            "nameInput"
+        ).value =
+            profile.name || "";
+
+
+        document.getElementById(
+            "emailInput"
+        ).value =
+            profile.email || "";
+
+
+        document.getElementById(
+            "phoneInput"
+        ).value =
+            profile.phone || "";
+
+    }
+    else{
+
+        document.getElementById(
+            "modalTitle"
+        ).textContent =
+            "Create Profile";
+
+
+        document.getElementById(
+            "nameInput"
+        ).value =
+            "";
+
+
+        document.getElementById(
+            "emailInput"
+        ).value =
+            "";
+
+
+        document.getElementById(
+            "phoneInput"
+        ).value =
+            "";
+
+    }
+
+
+    document.getElementById(
+        "profileModal"
+    ).classList.add("show");
+
+}
+
+
+/* =========================================
+   CLOSE PROFILE
+========================================= */
+
+function closeProfileModal(){
+
+    document.getElementById(
+        "profileModal"
+    ).classList.remove("show");
+
+}
+
+
+/* =========================================
+   SAVE PROFILE
+========================================= */
+
+function saveProfile(){
+
+    const name =
+        document.getElementById(
+            "nameInput"
+        ).value.trim();
+
+
+    const email =
+        document.getElementById(
+            "emailInput"
+        ).value.trim();
+
+
+    const phone =
+        document.getElementById(
+            "phoneInput"
+        ).value.trim();
+
+
+    if(name === ""){
+
+        alert(
+            "Please enter your name."
+        );
+
+        document.getElementById(
+            "nameInput"
+        ).focus();
+
+        return;
+
+    }
+
+
+    if(email === ""){
+
+        alert(
+            "Please enter your email address."
+        );
+
+        document.getElementById(
+            "emailInput"
+        ).focus();
+
+        return;
+
+    }
+
+
+    if(phone === ""){
+
+        alert(
+            "Please enter your phone number."
+        );
+
+        document.getElementById(
+            "phoneInput"
+        ).focus();
+
+        return;
+
+    }
+
+
+    const profile = {
+
+        name:name,
+
+        email:email,
+
+        phone:phone
+
+    };
+
+
+    localStorage.setItem(
+        "devicelog_profile",
+        JSON.stringify(profile)
+    );
+
+
+    loadProfile();
+
+    closeProfileModal();
+
+
+    alert(
+        "Profile saved successfully!"
+    );
+
+}
+
+
+/* =========================================
+   SHOW DETAIL PANEL
+========================================= */
+
+function showPanel(panelId){
+
+    const panel =
+        document.getElementById(
+            panelId
+        );
+
+
+    if(!panel){
+        return;
+    }
+
+
+    /*
+     * Hide all other panels first
+     */
+
+    const panels = [
+
+        "referencesPanel",
+
+        "aboutPanel",
+
+        "dataPanel"
+
+    ];
+
+
+    panels.forEach(
+        function(id){
+
+            const current =
+                document.getElementById(id);
+
+
+            if(current){
+
+                current.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+
+    /*
+     * Show selected panel
+     */
+
+    panel.style.display =
+        "block";
+
+
+    /*
+     * Scroll to the panel
+     */
+
+    setTimeout(
+        function(){
+
+            panel.scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+            });
+
+        },
+        50
+    );
+
+}
+
+
+/* =========================================
+   HIDE DETAIL PANEL
+========================================= */
+
+function hidePanel(panelId){
+
+    const panel =
+        document.getElementById(
+            panelId
+        );
+
+
+    if(panel){
+
+        panel.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+function toggleDarkMode(){
+
+    const enabled =
+        document.getElementById(
+            "darkModeToggle"
+        ).checked;
+
+
+    if(enabled){
+
+        document.body.classList.add(
+            "dark"
+        );
+
+
+        localStorage.setItem(
+            "devicelog_darkmode",
+            "true"
+        );
+
+    }
+    else{
+
+        document.body.classList.remove(
+            "dark"
+        );
+
+
+        localStorage.setItem(
+            "devicelog_darkmode",
+            "false"
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   LOAD DARK MODE
+========================================= */
+
+function loadDarkMode(){
+
+    const enabled =
+        localStorage.getItem(
+            "devicelog_darkmode"
+        ) === "true";
+
+
+    if(enabled){
+
+        document.body.classList.add(
+            "dark"
+        );
+
+
+        document.getElementById(
+            "darkModeToggle"
+        ).checked =
+            true;
+
+    }
+    else{
+
+        document.body.classList.remove(
+            "dark"
+        );
+
+
+        document.getElementById(
+            "darkModeToggle"
+        ).checked =
+            false;
+
+    }
+
+}
+
+
+/* =========================================
+   RESET APP DATA
+========================================= */
+
+function resetAppData(){
+
+    const confirmReset =
+        confirm(
+
+            "Are you sure you want to reset your app data?\n\n" +
+
+            "This will remove your saved profile " +
+
+            "and saved devices."
+
+        );
+
+
+    if(!confirmReset){
+
+        return;
+
+    }
+
+
+    localStorage.removeItem(
+        "devicelog_profile"
+    );
+
+
+    localStorage.removeItem(
+        "devicelog_devices"
+    );
+
+
+    localStorage.removeItem(
+        "selected_device_id"
+    );
+
+
+    alert(
+        "App data has been reset."
+    );
+
+
+    loadProfile();
+
+
+    /*
+     * Close Data Management panel
+     */
+
+    hidePanel(
+        "dataPanel"
+    );
+
+}
+
+
+/* =========================================
+   CLOSE MODAL OUTSIDE
+========================================= */
+
+document.getElementById(
+    "profileModal"
+)
+.addEventListener(
+    "click",
+
+    function(event){
+
+        if(event.target === this){
+
+            closeProfileModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   PAGE SHOW
+========================================= */
+
+window.addEventListener(
+    "pageshow",
+
+    function(){
+
+        loadProfile();
+
+        loadDarkMode();
+
+    }
+);
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+loadProfile();
+
+loadDarkMode();
+
+</script>
+
+</body>
+</html>

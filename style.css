@@ -1,0 +1,297 @@
+/* =========================================================
+   DEVICELOG - SPLASH SCREEN
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   ROOT COLORS
+   ========================================================= */
+
+:root {
+    --primary: #287be8;
+    --primary-dark: #1769d1;
+
+    --background: #ffffff;
+
+    --text: #18212f;
+    --text-light: #718096;
+
+    --loader-bg: #dce2e9;
+
+    --shadow: 0 8px 30px rgba(40, 55, 75, 0.08);
+}
+
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: var(--background);
+
+    color: var(--text);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   SPLASH SCREEN
+   ========================================================= */
+
+.splash {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   SPLASH CONTENT
+   ========================================================= */
+
+.splash-inner {
+    width: 100%;
+
+    max-width: 360px;
+
+    padding: 30px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.logo {
+    width: 100px;
+    height: 100px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 20px;
+
+    font-size: 65px;
+
+    background: #edf5ff;
+
+    border-radius: 24px;
+
+    box-shadow: var(--shadow);
+}
+
+
+/* =========================================================
+   APP NAME
+   ========================================================= */
+
+.splash h1 {
+    margin: 0;
+
+    font-size: 38px;
+
+    line-height: 1.2;
+
+    font-weight: 700;
+
+    letter-spacing: -0.5px;
+
+    color: var(--text);
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.splash p {
+    max-width: 280px;
+
+    margin-top: 12px;
+
+    margin-bottom: 35px;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+
+    color: var(--text-light);
+}
+
+
+/* =========================================================
+   LOADER
+   ========================================================= */
+
+.loader {
+    position: relative;
+
+    width: 75px;
+
+    height: 5px;
+
+    overflow: hidden;
+
+    background: var(--loader-bg);
+
+    border-radius: 20px;
+}
+
+
+/* =========================================================
+   LOADER ANIMATION
+   ========================================================= */
+
+.loader i {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    display: block;
+
+    width: 35px;
+    height: 5px;
+
+    background: var(--primary);
+
+    border-radius: 20px;
+
+    animation:
+        loading 1.2s
+        ease-in-out
+        infinite;
+}
+
+
+/* =========================================================
+   LOADING KEYFRAMES
+   ========================================================= */
+
+@keyframes loading {
+
+    0% {
+        transform: translateX(-40px);
+    }
+
+    50% {
+        transform: translateX(20px);
+    }
+
+    100% {
+        transform: translateX(80px);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .splash-inner {
+        max-width: 320px;
+
+        padding: 25px;
+    }
+
+
+    .logo {
+        width: 85px;
+        height: 85px;
+
+        font-size: 55px;
+
+        border-radius: 20px;
+
+        margin-bottom: 18px;
+    }
+
+
+    .splash h1 {
+        font-size: 32px;
+    }
+
+
+    .splash p {
+        font-size: 14px;
+
+        margin-top: 10px;
+
+        margin-bottom: 30px;
+    }
+
+
+    .loader {
+        width: 65px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL SCREEN
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+    .logo {
+        width: 75px;
+        height: 75px;
+
+        font-size: 48px;
+    }
+
+
+    .splash h1 {
+        font-size: 29px;
+    }
+
+
+    .splash p {
+        font-size: 13px;
+    }
+
+}

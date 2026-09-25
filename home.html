@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeviceLog - Home</title>
+
+<style>
+
+/* =========================================
+   RESET
+========================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#e9edf2;
+    color:#18212f;
+}
+
+
+/* =========================================
+   PHONE
+========================================= */
+
+.phone{
+    width:390px;
+    height:844px;
+    margin:20px auto;
+    background:#f5f7fa;
+    border-radius:35px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 10px 35px rgba(0,0,0,.15);
+}
+
+
+/* =========================================
+   APP
+========================================= */
+
+.app{
+    height:100%;
+    overflow-y:auto;
+    padding-bottom:90px;
+}
+
+.app::-webkit-scrollbar{
+    width:0;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header{
+    background:#fff;
+    padding:25px 22px 20px;
+    border-bottom:1px solid #e8ebef;
+}
+
+.header-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.brand-icon{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:#edf5ff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:23px;
+}
+
+.brand h1{
+    font-size:21px;
+}
+
+.notification{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:#f1f4f7;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:18px;
+}
+
+
+/* =========================================
+   GREETING
+========================================= */
+
+.hello{
+    margin-top:22px;
+}
+
+.hello p{
+    color:#718096;
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.hello h2{
+    font-size:25px;
+    line-height:1.2;
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.content{
+    padding:20px;
+}
+
+
+/* =========================================
+   STATISTICS
+========================================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.stat-card{
+    background:#fff;
+    border:1px solid #e4e8ee;
+    border-radius:15px;
+    padding:17px;
+}
+
+.stat-icon{
+    width:36px;
+    height:36px;
+    border-radius:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:12px;
+    font-size:17px;
+}
+
+.blue{
+    background:#edf5ff;
+}
+
+.green{
+    background:#eaf8ef;
+}
+
+.yellow{
+    background:#fff7df;
+}
+
+.red{
+    background:#fff0f0;
+}
+
+.stat-label{
+    font-size:12px;
+    color:#718096;
+    margin-bottom:5px;
+}
+
+.stat-number{
+    font-size:24px;
+    font-weight:700;
+}
+
+
+/* =========================================
+   WELCOME
+========================================= */
+
+.welcome{
+    background:#287be8;
+    color:#fff;
+    border-radius:18px;
+    padding:21px;
+    margin-bottom:20px;
+}
+
+.welcome h2{
+    font-size:19px;
+    margin-bottom:8px;
+}
+
+.welcome p{
+    font-size:12px;
+    line-height:1.5;
+    opacity:.9;
+    margin-bottom:18px;
+}
+
+.add-btn{
+    display:block;
+    width:100%;
+    border:none;
+    background:#fff;
+    color:#287be8;
+    border-radius:10px;
+    padding:12px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    text-align:center;
+    text-decoration:none;
+}
+
+
+/* =========================================
+   RECENT DEVICES
+========================================= */
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+
+.section-title h2{
+    font-size:18px;
+}
+
+.section-title a{
+    color:#287be8;
+    font-size:12px;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.devices{
+    background:#fff;
+    border-radius:16px;
+    border:1px solid #e4e8ee;
+    overflow:hidden;
+}
+
+.device{
+    padding:15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid #edf0f3;
+    cursor:pointer;
+}
+
+.device:last-child{
+    border-bottom:none;
+}
+
+.device:active{
+    background:#f7faff;
+}
+
+.device-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-width:0;
+}
+
+.device-icon{
+    width:43px;
+    height:43px;
+    border-radius:11px;
+    background:#f1f6fd;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:20px;
+    flex-shrink:0;
+}
+
+.device-info{
+    min-width:0;
+}
+
+.device-name{
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:4px;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.device-type{
+    color:#8792a2;
+    font-size:11px;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.status{
+    font-size:9px;
+    font-weight:700;
+    padding:6px 8px;
+    border-radius:15px;
+    white-space:nowrap;
+    margin-left:8px;
+}
+
+.working{
+    background:#eaf8ef;
+    color:#23944c;
+}
+
+.repair{
+    background:#fff7df;
+    color:#b27a00;
+}
+
+.not-working{
+    background:#fff0f0;
+    color:#d43b3b;
+}
+
+.empty{
+    padding:28px 15px;
+    text-align:center;
+    color:#8792a2;
+    font-size:12px;
+}
+
+
+/* =========================================
+   BOTTOM NAVIGATION
+   SAME SIZE FOR ALL PAGES
+========================================= */
+
+.bottom-nav{
+    position:absolute;
+    bottom:0;
+    left:0;
+
+    width:100%;
+    height:75px;
+
+    background:#ffffff;
+
+    border-top:1px solid #e4e8ee;
+
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+
+    padding:5px 8px;
+
+    z-index:100;
+}
+
+.nav-item{
+    width:65px;
+    height:55px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    gap:4px;
+
+    text-decoration:none;
+
+    color:#8994a3;
+
+    font-size:10px;
+    font-weight:400;
+
+    border-radius:12px;
+
+    flex-shrink:0;
+
+    -webkit-tap-highlight-color:transparent;
+}
+
+.nav-item .nav-icon{
+    width:19px;
+    height:19px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:17px;
+    line-height:1;
+}
+
+.nav-item.active{
+    color:#287be8;
+    background:#edf5ff;
+    font-weight:600;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media(max-width:430px){
+
+    body{
+        background:#f5f7fa;
+    }
+
+    .phone{
+        width:100%;
+        height:100vh;
+        margin:0;
+        border-radius:0;
+        box-shadow:none;
+    }
+
+}
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+body.dark{
+    background:#0f172a;
+    color:#f1f5f9;
+}
+
+body.dark .phone{
+    background:#111827;
+    box-shadow:0 10px 35px rgba(0,0,0,.35);
+}
+
+body.dark .header{
+    background:#1f2937;
+    border-bottom-color:#374151;
+}
+
+body.dark .brand h1,
+body.dark .hello h2,
+body.dark .section-title h2,
+body.dark .stat-number{
+    color:#f8fafc;
+}
+
+body.dark .hello p,
+body.dark .stat-label,
+body.dark .device-type{
+    color:#94a3b8;
+}
+
+body.dark .notification{
+    background:#374151;
+}
+
+body.dark .stat-card{
+    background:#1f2937;
+    border-color:#374151;
+}
+
+body.dark .blue{
+    background:#1e3a5f;
+}
+
+body.dark .green{
+    background:#163b2a;
+}
+
+body.dark .yellow{
+    background:#463816;
+}
+
+body.dark .red{
+    background:#451f24;
+}
+
+body.dark .devices{
+    background:#1f2937;
+    border-color:#374151;
+}
+
+body.dark .device{
+    border-bottom-color:#374151;
+}
+
+body.dark .device:active{
+    background:#273449;
+}
+
+body.dark .device-icon{
+    background:#273449;
+}
+
+body.dark .empty{
+    color:#94a3b8;
+}
+
+body.dark .bottom-nav{
+    background:#1f2937;
+    border-top-color:#374151;
+}
+
+body.dark .nav-item{
+    color:#94a3b8;
+}
+
+body.dark .nav-item.active{
+    color:#60a5fa;
+    background:#1e3a5f;
+}
+
+body.dark .section-title a{
+    color:#60a5fa;
+}
+
+/* Keep the welcome card readable in dark mode */
+body.dark .welcome{
+    background:#1d4ed8;
+}
+
+body.dark .add-btn{
+    background:#f8fafc;
+    color:#2563eb;
+}
+
+@media(max-width:430px){
+    body.dark{
+        background:#111827;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="phone">
+
+    <div class="app">
+
+
+        <!-- =========================================
+             HEADER
+        ========================================== -->
+
+        <header class="header">
+
+            <div class="header-top">
+
+                <div class="brand">
+
+                    <div class="brand-icon">
+                        💻
+                    </div>
+
+                    <h1>
+                        DeviceLog
+                    </h1>
+
+                </div>
+
+
+                <div
+                    class="notification"
+                    title="Notifications">
+
+                    🔔
+
+                </div>
+
+            </div>
+
+
+            <div class="hello">
+
+                <p id="greeting">
+                    Good morning!
+                </p>
+
+                <h2 id="welcomeName">
+                    Welcome back 👋
+                </h2>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             MAIN CONTENT
+        ========================================== -->
+
+        <main class="content">
+
+
+            <!-- =========================================
+                 STATISTICS
+            ========================================== -->
+
+            <section class="stats">
+
+
+                <!-- TOTAL DEVICES -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        💻
+                    </div>
+
+                    <div class="stat-label">
+                        Total Devices
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        id="totalDevices">
+
+                        0
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- WORKING -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        ✓
+                    </div>
+
+                    <div class="stat-label">
+                        Working
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        id="workingDevices">
+
+                        0
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- UNDER REPAIR -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon yellow">
+                        🔧
+                    </div>
+
+                    <div class="stat-label">
+                        Under Repair
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        id="repairDevices">
+
+                        0
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- NOT WORKING -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon red">
+                        !
+
+                    </div>
+
+                    <div class="stat-label">
+                        Not Working
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        id="notWorkingDevices">
+
+                        0
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================================
+                 WELCOME CARD
+            ========================================== -->
+
+            <section class="welcome">
+
+                <h2 id="welcomeTitle">
+                    Manage Your Devices
+                </h2>
+
+                <p>
+                    Keep track of your devices, status,
+                    and maintenance records in one place.
+                </p>
+
+                <a
+                    href="add-device.html"
+                    class="add-btn">
+
+                    + Add Device
+
+                </a>
+
+            </section>
+
+
+
+            <!-- =========================================
+                 RECENT DEVICES
+            ========================================== -->
+
+            <div class="section-title">
+
+                <h2>
+                    Recent Devices
+                </h2>
+
+                <a href="device-list.html">
+                    View All
+                </a>
+
+            </div>
+
+
+            <section
+                class="devices"
+                id="deviceList">
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+
+    <!-- =========================================
+         BOTTOM NAVIGATION
+    ========================================== -->
+
+    <nav class="bottom-nav">
+
+
+        <!-- HOME -->
+
+        <a
+            href="home.html"
+            class="nav-item active">
+
+            <div class="nav-icon">
+                🏠
+            </div>
+
+            <span>
+                Home
+            </span>
+
+        </a>
+
+
+
+        <!-- DEVICES -->
+
+        <a
+            href="device-list.html"
+            class="nav-item">
+
+            <div class="nav-icon">
+                📱
+            </div>
+
+            <span>
+                Devices
+            </span>
+
+        </a>
+
+
+
+        <!-- STATS -->
+
+        <a
+            href="stats.html"
+            class="nav-item">
+
+            <div class="nav-icon">
+                📊
+            </div>
+
+            <span>
+                Stats
+            </span>
+
+        </a>
+
+
+
+        <!-- SETTINGS -->
+
+        <a
+            href="settings.html"
+            class="nav-item">
+
+            <div class="nav-icon">
+                ⚙️
+            </div>
+
+            <span>
+                Settings
+            </span>
+
+        </a>
+
+    </nav>
+
+</div>
+
+
+
+<script>
+
+/* =========================================
+   DEFAULT DEVICES
+========================================= */
+
+const defaultDevices = [
+
+    {
+        id:"default-1",
+        name:"MacBook Air",
+        type:"Laptop",
+        brand:"Apple",
+        status:"Working",
+        icon:"💻"
+    },
+
+    {
+        id:"default-2",
+        name:"iPhone 15",
+        type:"Smartphone",
+        brand:"Apple",
+        status:"Working",
+        icon:"📱"
+    },
+
+    {
+        id:"default-3",
+        name:"Bluetooth Speaker",
+        type:"Audio",
+        brand:"JBL",
+        status:"Under Repair",
+        icon:"🔊"
+    },
+
+    {
+        id:"default-4",
+        name:"Canon Printer",
+        type:"Printer",
+        brand:"Canon",
+        status:"Not Working",
+        icon:"🖨️"
+    },
+
+    {
+        id:"default-5",
+        name:"Smartwatch",
+        type:"Wearable",
+        brand:"Samsung",
+        status:"Working",
+        icon:"⌚"
+    }
+
+];
+
+
+/* =========================================
+   GET DEVICES
+========================================= */
+
+function getDevices(){
+
+    try{
+
+        const saved =
+            localStorage.getItem(
+                "devicelog_devices"
+            );
+
+
+        if(saved !== null){
+
+            const devices =
+                JSON.parse(saved);
+
+
+            if(Array.isArray(devices)){
+
+                return devices;
+
+            }
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Error loading devices:",
+            error
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "devicelog_devices",
+        JSON.stringify(defaultDevices)
+    );
+
+
+    return defaultDevices;
+
+}
+
+
+/* =========================================
+   STATUS CLASS
+========================================= */
+
+function statusClass(status){
+
+    if(status === "Working"){
+        return "working";
+    }
+
+    if(status === "Under Repair"){
+        return "repair";
+    }
+
+    return "not-working";
+
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replace(
+            /[&<>"']/g,
+
+            function(char){
+
+                return {
+
+                    "&":"&amp;",
+                    "<":"&lt;",
+                    ">":"&gt;",
+                    '"':"&quot;",
+                    "'":"&#039;"
+
+                }[char];
+
+            }
+
+        );
+
+}
+
+
+/* =========================================
+   DISPLAY PROFILE NAME
+========================================= */
+
+function renderProfile(){
+
+    const profile =
+        JSON.parse(
+            localStorage.getItem(
+                "devicelog_profile"
+            )
+        );
+
+
+    const welcomeName =
+        document.getElementById(
+            "welcomeName"
+        );
+
+
+    if(profile && profile.name){
+
+        const name =
+            profile.name.trim();
+
+
+        /*
+         * Get first name only
+         *
+         * Example:
+         * Angeline Palay
+         * becomes:
+         * Angeline
+         */
+
+        const firstName =
+            name.split(/\s+/)[0];
+
+
+        welcomeName.textContent =
+            "Welcome back, " +
+            firstName +
+            " 👋";
+
+
+    }else{
+
+        welcomeName.textContent =
+            "Welcome back 👋";
+
+    }
+
+}
+
+
+/* =========================================
+   GREETING
+========================================= */
+
+function setGreeting(){
+
+    const hour =
+        new Date().getHours();
+
+
+    const greeting =
+        document.getElementById(
+            "greeting"
+        );
+
+
+    if(hour < 12){
+
+        greeting.textContent =
+            "Good morning!";
+
+    }
+    else if(hour < 18){
+
+        greeting.textContent =
+            "Good afternoon!";
+
+    }
+    else{
+
+        greeting.textContent =
+            "Good evening!";
+
+    }
+
+}
+
+
+/* =========================================
+   DISPLAY DEVICES
+========================================= */
+
+function renderDevices(){
+
+    const devices =
+        getDevices();
+
+
+    /* =====================================
+       TOTAL
+    ====================================== */
+
+    document.getElementById(
+        "totalDevices"
+    ).textContent =
+        devices.length;
+
+
+    /* =====================================
+       WORKING
+    ====================================== */
+
+    document.getElementById(
+        "workingDevices"
+    ).textContent =
+
+        devices.filter(
+            function(device){
+
+                return device.status === "Working";
+
+            }
+        ).length;
+
+
+    /* =====================================
+       UNDER REPAIR
+    ====================================== */
+
+    document.getElementById(
+        "repairDevices"
+    ).textContent =
+
+        devices.filter(
+            function(device){
+
+                return device.status === "Under Repair";
+
+            }
+        ).length;
+
+
+    /* =====================================
+       NOT WORKING
+    ====================================== */
+
+    document.getElementById(
+        "notWorkingDevices"
+    ).textContent =
+
+        devices.filter(
+            function(device){
+
+                return device.status === "Not Working";
+
+            }
+        ).length;
+
+
+    const list =
+        document.getElementById(
+            "deviceList"
+        );
+
+
+    /* =====================================
+       EMPTY
+    ====================================== */
+
+    if(devices.length === 0){
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                No devices added yet.
+
+                <br><br>
+
+                Tap "+ Add Device" to add one.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /* =====================================
+       RECENT DEVICES
+       SHOW MAXIMUM 5
+    ====================================== */
+
+    list.innerHTML =
+
+        devices
+        .slice()
+        .reverse()
+        .slice(0,5)
+        .map(
+            function(device){
+
+                return `
+
+                    <div
+                        class="device"
+                        onclick="openDevice('${escapeHtml(device.id)}')">
+
+                        <div class="device-left">
+
+
+                            <div class="device-icon">
+
+                                ${
+                                    escapeHtml(
+                                        device.icon ||
+                                        "💻"
+                                    )
+                                }
+
+                            </div>
+
+
+                            <div class="device-info">
+
+                                <div class="device-name">
+
+                                    ${
+                                        escapeHtml(
+                                            device.name
+                                        )
+                                    }
+
+                                </div>
+
+
+                                <div class="device-type">
+
+                                    ${
+                                        escapeHtml(
+                                            device.type ||
+                                            "Device"
+                                        )
+                                    }
+
+                                    •
+
+                                    ${
+                                        escapeHtml(
+                                            device.brand ||
+                                            "Unknown Brand"
+                                        )
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <span
+                            class="status ${
+                                statusClass(
+                                    device.status
+                                )
+                            }">
+
+                            ${
+                                escapeHtml(
+                                    device.status ||
+                                    "Unknown"
+                                )
+                            }
+
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/* =========================================
+   OPEN DEVICE DETAILS
+========================================= */
+
+function openDevice(id){
+
+    localStorage.setItem(
+        "selected_device_id",
+        id
+    );
+
+    window.location.href =
+        "device-details.html";
+
+}
+
+
+/* =========================================
+   REFRESH EVERYTHING
+========================================= */
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+function loadDarkMode(){
+
+    const darkMode =
+        localStorage.getItem("devicelog_darkmode") === "true";
+
+    if(darkMode){
+        document.body.classList.add("dark");
+    }else{
+        document.body.classList.remove("dark");
+    }
+}
+
+function refreshHome(){
+
+    loadDarkMode();
+
+    setGreeting();
+
+    renderProfile();
+
+    renderDevices();
+
+}
+
+
+/* =========================================
+   PAGE SHOW
+========================================= */
+
+window.addEventListener(
+    "pageshow",
+
+    function(){
+
+        refreshHome();
+
+    }
+
+);
+
+
+/* =========================================
+   STORAGE CHANGE
+========================================= */
+
+window.addEventListener(
+    "storage",
+
+    function(){
+
+        refreshHome();
+
+    }
+
+);
+
+
+/* =========================================
+   START
+========================================= */
+
+loadDarkMode();
+refreshHome();
+
+</script>
+
+</body>
+</html>
